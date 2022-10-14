@@ -15,12 +15,10 @@ class TransactionProvider with ChangeNotifier {
     var db = TransactionDB(dbName: "transations.db");
     //add data
     await db.insertData(statement);
+
     //load data
     transactions = await db.loadAllData();
-    // print("Transactions from addTransaction()");
-    for (var element in transactions) {
-      // print(element.toString());
-    }
+
     //notify consumer
     notifyListeners();
   }
@@ -28,11 +26,13 @@ class TransactionProvider with ChangeNotifier {
   //my update db
   void updateTransaction(Transactions statement) async {
     var db = TransactionDB(dbName: "transations.db");
+
     //save data
     await db.updateData(statement);
+
     //load data
     transactions = await db.loadAllData();
-    // print("Transactions from updateTransaction() ${transactions.toString()}");
+
     //notify consumer
     notifyListeners();
   }
@@ -42,17 +42,20 @@ class TransactionProvider with ChangeNotifier {
     var db = TransactionDB(dbName: "transations.db");
     //save data
     await db.deleteData(statement);
+
     //load data
     transactions = await db.loadAllData();
-    // print("Transactions from deleteTransaction() ${transactions.toString()}");
+
     //notify consumer
     notifyListeners();
   }
 
   void initAllData() async {
     var db = TransactionDB(dbName: "transations.db");
+    //load data
     transactions = await db.loadAllData();
-    // print("Transactions from initAllData(()) ${transactions.toString()}");
+
+    //notify consumer
     notifyListeners();
   }
 }

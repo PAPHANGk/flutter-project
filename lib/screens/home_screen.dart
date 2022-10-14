@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Expense App"),
+          title: const Text("แอปรายชื่อนักเรียน"),
           actions: [
             IconButton(
                 icon: const Icon(Icons.exit_to_app),
@@ -56,41 +56,40 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemCount: providers.transactions.length,
                 itemBuilder: (context, int index) {
                   Transactions data = providers.transactions[index];
+
                   return Card(
                       elevation: 5,
-                      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                      
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
                       child: ListTile(
-                        enabled: true,
-                        leading: CircleAvatar(
-                            radius: 30,
-                            child: FittedBox(
-                              child: Text(data.amount.toString()),
-                            )),
-                        title: Text(data.title),
-                        subtitle: Text(data.date),
-                        onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return FormEditScreen(data: data);
-                              }));
-                            },
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete), 
-                          onPressed: () {
-                          // call provider
+                          enabled: true,
+                          leading: CircleAvatar(
+                              radius: 30,
+                              child: FittedBox(
+                                child: Text(data.title.toString()),
+                              )),
+                          title: Text(data.title),
+                          subtitle: Text(data.date),
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return FormEditScreen(data: data);
+                            }));
+                          },
+                          trailing: IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () {
+                                // call provider
                                 var provider = Provider.of<TransactionProvider>(
                                     context,
                                     listen: false);
+                                provider.updateTransaction(data); //edit1
                                 provider.deleteTransaction(data);
-                          }
-                        )
-                      ));
+                              })));
                 },
               );
             }
           },
-        )
-    );
+        ));
   }
 }

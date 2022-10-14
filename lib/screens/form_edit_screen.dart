@@ -21,6 +21,8 @@ class _FormEditScreenState extends State<FormEditScreen> {
 
   final idController = TextEditingController();
   final titleController = TextEditingController();
+  final title2Controller = TextEditingController();
+  final title3Controller = TextEditingController();
   final amountController = TextEditingController();
 
   final ButtonStyle style =
@@ -31,6 +33,8 @@ class _FormEditScreenState extends State<FormEditScreen> {
     super.initState();
     idController.text = widget.data.id.toString();
     titleController.text = widget.data.title.toString();
+    title2Controller.text = widget.data.title2.toString();
+    title3Controller.text = widget.data.title3.toString();
     amountController.text = widget.data.amount.toString();
   }
 
@@ -50,31 +54,53 @@ class _FormEditScreenState extends State<FormEditScreen> {
                     TextFormField(
                       enabled: false,
                       style: const TextStyle(color: Colors.black54),
-                      decoration: const InputDecoration(labelText: "Item ID"),
+                      decoration: const InputDecoration(labelText: "ID"),
                       autofocus: false,
                       controller: idController,
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(labelText: "Item Name"),
+                      decoration: const InputDecoration(labelText: "Name"),
                       autofocus: false,
                       controller: titleController,
                       validator: (String? str) {
                         if (str!.isEmpty) {
-                          return "Please input Item Name.";
+                          return "Please input Name.";
                         }
                         return null;
                       },
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(labelText: "Price"),
+                      decoration: const InputDecoration(labelText: "Surname"),
+                      autofocus: false,
+                      controller: title2Controller,
+                      validator: (String? str) {
+                        if (str!.isEmpty) {
+                          return "Please input Surname.";
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(labelText: "Sex"),
+                      autofocus: false,
+                      controller: title3Controller,
+                      validator: (String? str) {
+                        if (str!.isEmpty) {
+                          return "Please input Sex.";
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(labelText: "Age"),
                       keyboardType: TextInputType.number,
                       controller: amountController,
                       validator: (String? str) {
                         if (str!.isEmpty) {
-                          return "Please input Price.";
+                          return "Please input Age.";
                         }
                         if (double.parse(str) <= 0) {
-                          return "Please input Price more than 0.";
+                          return "Please input Age more than 0.";
                         }
                         return null;
                       },
@@ -85,7 +111,9 @@ class _FormEditScreenState extends State<FormEditScreen> {
                           if (formKey.currentState!.validate()) {
                             var id = int.parse(idController.text);
                             var title = titleController.text;
-                            var amount = double.parse(amountController.text);
+                            var title2 = title2Controller.text;
+                            var title3 = title3Controller.text;
+                            var amount = int.parse(amountController.text);
 
                             // call provider
                             var provider = Provider.of<TransactionProvider>(
@@ -94,6 +122,8 @@ class _FormEditScreenState extends State<FormEditScreen> {
                             Transactions item = Transactions(
                                 id: id,
                                 title: title,
+                                title2: title2,
+                                title3: title3,
                                 amount: amount,
                                 date: widget.data.date);
                             provider.updateTransaction(item);

@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(title: 'โปรเจ็ค01'),
+        home: const MyHomePage(title: 'แอพบัญชี'),
       ),
     );
   }
@@ -46,6 +46,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return HomeScreen();
+    return HomeScreen(); 
   }
 }
